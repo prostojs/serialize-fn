@@ -7,7 +7,7 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "publish": "pnpm -r publish",
-    "version:patch": "pnpm run test && pnpm version patch && node ./scripts/sync && node build && node publish"
+    "version:patch": "pnpm run test && pnpm version patch && node ./scripts/sync && pnpm run build && pnpm run publish"
   },
   "keywords": [],
   "author": "Artem Maltsev",
