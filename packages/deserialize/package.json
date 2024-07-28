@@ -1,12 +1,13 @@
 {
   "name": "@prostojs/deserialize-fn",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [],
   "type": "module",
   "author": "Artem Maltsev",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c rollup.config.js",
+    "publish": "npm publish --access public",
     "test": "vitest run"
   },
   "main": "dist/index.cjs",

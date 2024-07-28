@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "pnpm -r build",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "publish": "pnpm -r publish",
+    "version:patch": "pnpm run test && pnpm version patch && node ./scripts/sync && node build && node publish"
   },
   "keywords": [],
   "author": "Artem Maltsev",
