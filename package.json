@@ -1,6 +1,6 @@
 {
   "name": "@prostojs/serialize-fn",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Serialize/deserialize fn",
   "type": "module",
   "scripts": {
