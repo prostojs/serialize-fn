@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
-    "publish": "pnpm -r publish",
+    "pub": "pnpm -r pub",
     "version:patch": "pnpm run test && pnpm version patch && node ./scripts/sync && pnpm run build && git add . && git commit -m \"chore: bump version\" && git push && pnpm run pub"
   },
   "keywords": [],
