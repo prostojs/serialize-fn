@@ -1,5 +1,6 @@
 {
   "name": "@prostojs/serialize-fn",
+  "version": "0.0.0",
   "keywords": [],
   "type": "module",
   "author": "Artem Maltsev",
