@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "lib": ["esnext", "DOM"],
+    "strictNullChecks": true,
+    "target": "ESNext"
+  },
+  "buildOptions": {},
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
