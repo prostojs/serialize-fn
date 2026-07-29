@@ -7,7 +7,7 @@ describe('deserializeFn', () => {
     const fn = deserializeFn('return ((v) => v + 1)(value)')
     expect(fn.toString()).toMatchInlineSnapshot(`
       "(ctx) => {
-          const newCtx = Object.freeze(Object.assign({}, __vite_ssr_import_0__.GLOBALS, ctx));
+          const newCtx = Object.freeze(Object.assign({}, (0,__vite_ssr_import_0__.GLOBALS), ctx));
           return fn(newCtx);
         }"
     `)

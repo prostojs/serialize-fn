@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/prostojs/serialize-fn#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-commonjs": "^26.0.3",
+    "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-replace": "^5.0.7",
     "@typescript-eslint/eslint-plugin": "6.3.0",
     "@typescript-eslint/parser": "6.3.0",
@@ -33,10 +33,15 @@
     "eslint-plugin-unicorn": "49.0.0",
     "eslint-plugin-yml": "1.10.0",
     "prettier": "3.1.1",
-    "rollup": "^4.19.1",
-    "rollup-plugin-dts": "^6.1.1",
+    "rollup": "^4.62.3",
+    "rollup-plugin-dts": "^6.4.1",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.4"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "^7.3.6"
+    }
   }
 }
