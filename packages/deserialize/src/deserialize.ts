@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/consistent-generic-constructors */
-/* eslint-disable prefer-object-spread */
 /* eslint-disable no-new-func */
 /* eslint-disable @typescript-eslint/no-implied-eval */
 import { GLOBALS } from './globals'
@@ -32,9 +31,52 @@ export class FNPool<R, CTX> {
  */
 export function deserializeFn<R, CTX>(code: string): (__ctx__: CTX) => R {
   const fnCode = `with(__ctx__){\n${code}\n}`
-  const fn = new Function('__ctx__', fnCode) as (ctx?: Record<string, unknown>) => R
-  return ((ctx?: Record<string, unknown>) => {
-    const newCtx = Object.freeze(Object.assign({}, GLOBALS, ctx))
-    return fn(newCtx)
-  }) as (__ctx__: CTX) => R
+  const fn = new Function('__ctx__', fnCode) as (ctx: object) => R
+  return ((ctx?: CTX) => fn(createSandbox(ctx))) as (__ctx__: CTX) => R
+}
+
+const isEnumerable = Object.prototype.propertyIsEnumerable
+
+/**
+ * Builds the frozen object a fn runs against (`with(sandbox)`).
+ *
+ * The sandbox inherits the hidden globals from the frozen `GLOBALS` object
+ * instead of copying all of them on every call; only the ctx's own enumerable
+ * keys (the keys `Object.assign` would copy) become own properties. Name
+ * resolution is unchanged: ctx keys, then hidden globals (`null`), then
+ * `Object.prototype`, then the real globals. Both levels are frozen, so
+ * assigning any sandbox name still fails silently.
+ */
+function createSandbox(ctx: unknown): object {
+  const box = Object.create(GLOBALS) as Record<PropertyKey, unknown>
+  if (ctx !== null && ctx !== undefined) {
+    const src = Object(ctx) as Record<PropertyKey, unknown>
+    for (const key of Object.keys(src)) {
+      put(box, key, src[key])
+    }
+    for (const sym of Object.getOwnPropertySymbols(src)) {
+      if (isEnumerable.call(src, sym)) {
+        put(box, sym, src[sym])
+      }
+    }
+  }
+  return Object.freeze(box)
+}
+
+/**
+ * A key that shadows an inherited name (a hidden global or an
+ * `Object.prototype` member) is defined rather than assigned: assignment would
+ * hit the frozen inherited property (or the `__proto__` setter).
+ */
+function put(box: Record<PropertyKey, unknown>, key: PropertyKey, value: unknown) {
+  if (key in box) {
+    Object.defineProperty(box, key, {
+      value,
+      enumerable: true,
+      writable: true,
+      configurable: true,
+    })
+  } else {
+    box[key] = value
+  }
 }

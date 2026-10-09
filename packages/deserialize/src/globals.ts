@@ -4,8 +4,11 @@
  * For security considerations
  * all the globals are hidden
  * from fn runtime
+ *
+ * Frozen: every sandbox inherits from this object (see `deserializeFn`),
+ * so assigning one of these names from inside a fn fails silently.
  */
-export const GLOBALS = {
+export const GLOBALS = Object.freeze({
   // Node.js Globals
   global: null,
   process: null,
@@ -93,4 +96,4 @@ export const GLOBALS = {
   // other
   eval: null,
   __ctx__: null,
-}
+})

@@ -42,6 +42,9 @@ export function createConfig(dir) {
         commonJS({ sourceMap: false }),
         nodeResolve(),
         typescript({
+          // rpt2's default include (`**/*.ts+(|x)`) matches nothing with
+          // picomatch 2.3.2, so every `.ts` import failed to resolve
+          include: ['*.ts', '**/*.ts', '*.tsx', '**/*.tsx'],
           check: true,
           tsconfig: path.join(dir, './tsconfig.json'),
           tsconfigOverride: {
